@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "authority": "life_lately_private_authority",
+  "private_input_transport": "X25519+HKDF-SHA256+ChaCha20-Poly1305",
+  "capsule_schema": "life-lately-capsule-v1",
+  "required_for": [
+    "private source handoff to public compute",
+    "private non-PHI configuration handoff to public compute",
+    "private runtime inputs not already public"
+  ],
+  "not_required_for": [
+    "public DNS/TLS/site checks",
+    "public booking/profile link checks",
+    "synthetic non-PHI smoke fixtures"
+  ],
+  "data_classes_allowed": [
+    "SYNTHETIC_NON_PHI",
+    "PRIVATE_NON_PHI"
+  ],
+  "data_classes_forbidden": [
+    "PHI",
+    "CLINICAL_RECORD",
+    "PSYCHOTHERAPY_NOTE"
+  ],
+  "plaintext_rules": {
+    "public_repository": false,
+    "public_artifact": false,
+    "public_log": false,
+    "private_key_artifact": false,
+    "transient_runner_plaintext": "allowed only inside authorized capability and must be destroyed before completion"
+  },
+  "binding": {
+    "run_id": true,
+    "capability": true,
+    "source_sha256": true,
+    "recipient_key_fingerprint": true,
+    "authenticated_aad": true,
+    "ciphertext_sha256": true,
+    "plaintext_sha256": true
+  }
+}
