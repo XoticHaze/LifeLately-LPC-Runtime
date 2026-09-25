@@ -1,0 +1,45 @@
+name: capsule-transport
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'capsules/**'
+      - 'scripts/capsule_roundtrip_smoke_v1.py'
+      - 'tests/test_capsule_transport_v1.py'
+      - 'runtime/capsule_policy.v1.json'
+      - '.github/workflows/capsule-transport.yml'
+  pull_request:
+    paths:
+      - 'capsules/**'
+      - 'scripts/capsule_roundtrip_smoke_v1.py'
+      - 'tests/test_capsule_transport_v1.py'
+      - 'runtime/capsule_policy.v1.json'
+      - '.github/workflows/capsule-transport.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capsule:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install capsule crypto dependency
+        run: python -m pip install --disable-pip-version-check cryptography
+      - name: Compile capsule transport
+        run: python -m py_compile capsules/transport_v1.py scripts/capsule_roundtrip_smoke_v1.py
+      - name: Test fail-closed capsule semantics
+        run: python -m unittest -v tests.test_capsule_transport_v1
+      - name: Execute run-bound encrypted capsule smoke
+        run: python scripts/capsule_roundtrip_smoke_v1.py
+      - name: Upload sanitized capsule receipt only
+        uses: actions/upload-artifact@v4
+        with:
+          name: capsule-transport-receipt
+          path: capsule-transport-receipt.json
+          if-no-files-found: error
