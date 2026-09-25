@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "data_policy": "NO_PHI_IN_PUBLIC_REPOSITORY_OR_ARTIFACTS",
+  "capabilities": [
+    {
+      "name": "SITE_BUILD_TEST",
+      "input_class": "APPROVED_SOURCE_OR_STATIC_ARTIFACT",
+      "output": "SANITIZED_RECEIPT"
+    },
+    {
+      "name": "SITE_DEPLOY",
+      "input_class": "APPROVED_DEPLOYMENT_ARTIFACT",
+      "output": "DEPLOYMENT_RECEIPT"
+    },
+    {
+      "name": "DNS_DRIFT_AUDIT",
+      "input_class": "PUBLIC_DNS_EXPECTATION",
+      "output": "SANITIZED_RECEIPT"
+    },
+    {
+      "name": "TLS_HEALTH_CHECK",
+      "input_class": "PUBLIC_HOSTNAME",
+      "output": "SANITIZED_RECEIPT"
+    },
+    {
+      "name": "SITE_HEALTH_CHECK",
+      "input_class": "PUBLIC_URL",
+      "output": "SANITIZED_RECEIPT"
+    },
+    {
+      "name": "BOOKING_LINK_CHECK",
+      "input_class": "PUBLIC_URL",
+      "output": "SANITIZED_RECEIPT"
+    },
+    {
+      "name": "PROFILE_LINK_CHECK",
+      "input_class": "PUBLIC_URL",
+      "output": "SANITIZED_RECEIPT"
+    },
+    {
+      "name": "EMAIL_DNS_AUDIT",
+      "input_class": "PUBLIC_DNS_EXPECTATION",
+      "output": "SANITIZED_RECEIPT"
+    },
+    {
+      "name": "CONFIG_DRIFT_AUDIT",
+      "input_class": "APPROVED_PUBLIC_EXPECTATION",
+      "output": "SANITIZED_RECEIPT"
+    },
+    {
+      "name": "DOMAIN_EXPIRY_CHECK",
+      "input_class": "PUBLIC_DOMAIN",
+      "output": "SANITIZED_RECEIPT"
+    },
+    {
+      "name": "BUSINESS_DEPENDENCY_HEALTH",
+      "input_class": "PUBLIC_DEPENDENCY_SET",
+      "output": "SANITIZED_RECEIPT"
+    },
+    {
+      "name": "SYNTHETIC_ROUTE_PROBE",
+      "input_class": "SYNTHETIC_NON_PHI",
+      "output": "SANITIZED_RECEIPT"
+    },
+    {
+      "name": "DEPLOYMENT_RECEIPT",
+      "input_class": "SANITIZED_EXECUTION_FACTS",
+      "output": "SANITIZED_RECEIPT"
+    }
+  ]
+}
