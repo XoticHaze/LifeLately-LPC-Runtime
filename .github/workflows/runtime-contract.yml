@@ -19,11 +19,15 @@ jobs:
           python-version: "3.12"
       - name: Validate governed runtime contract
         run: python scripts/runtime_contract_check.py --write runtime-contract-receipt.json
+      - name: Validate public binding readiness
+        run: python scripts/runtime_readiness_check.py --write runtime-readiness-receipt.json
       - name: Run contract tests
         run: python -m unittest discover -s tests -p "test_*.py"
-      - name: Upload sanitized deterministic receipt
+      - name: Upload sanitized deterministic receipts
         uses: actions/upload-artifact@v4
         with:
-          name: runtime-contract-receipt
-          path: runtime-contract-receipt.json
+          name: runtime-receipts
+          path: |
+            runtime-contract-receipt.json
+            runtime-readiness-receipt.json
           if-no-files-found: error
